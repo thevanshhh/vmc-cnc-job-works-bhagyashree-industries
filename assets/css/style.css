@@ -1,0 +1,1024 @@
+/* ==========================================================================
+   INDUSTRIAL BLUEPRINT & PRECISION ENGINEERING DESIGN SYSTEM
+   Master Stylesheet for Industrial Machinery Manufacturers
+   Aesthetics: Shop-floor authenticity, technical drafting grid, brass accents,
+   physical registration marks (+), dimension lines, and structural rivets.
+   ========================================================================== */
+
+/* 1. CSS Custom Properties / Design Tokens */
+:root {
+  /* Drafting Paper & Backgrounds */
+  --paper: #F5F3EF;          /* Main warm drafting vellum background */
+  --paper2: #EFECE6;         /* Secondary paper / caption tag background */
+  --paperlight: #FAF9F6;     /* Card background */
+  --white: #FFFFFF;
+
+  /* Structural Steel */
+  --steel: #1C2226;          /* Deep industrial dark steel / header / dark plates */
+  --steel2: #2A3238;         /* Secondary dark slate steel / card borders */
+  --steelline: #2F373E;      /* Dark border hairline */
+  --steelcard: #22292E;      /* Dark card surface */
+
+  /* Machining Metals & Accents */
+  --brass: #B08D57;          /* Classic engineering brass / corner marks / active tabs */
+  --brass2: #C8A468;         /* Light brass / illuminated badges / stat numbers */
+  --brass-glow: rgba(176, 141, 87, 0.18);
+  --brass-soft: rgba(176, 141, 87, 0.12);
+
+  /* Lines & Ink */
+  --hairline: #D4CEBF;       /* Blueprint boundary dividers & card outlines */
+  --ink: #14181B;            /* Deep black body text */
+  --muted: #5C656C;          /* Technical muted descriptions & secondary labels */
+  --muted-light: #9AA3AA;    /* Dark mode muted text */
+
+  /* Typography Stacks */
+  --font-display: 'Hanken Grotesk', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'JetBrains Mono', SFMono-Regular, Consolas, monospace;
+
+  /* Elevation & Transition */
+  --shadow-sm: 0 2px 6px rgba(28, 34, 38, 0.05);
+  --shadow-md: 0 8px 24px rgba(28, 34, 38, 0.08);
+  --shadow-lg: 0 16px 36px rgba(28, 34, 38, 0.14);
+  --transition: 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 2. Base Reset & Typography */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  color-scheme: light;
+}
+
+body {
+  font-family: var(--font-display);
+  background-color: var(--paper);
+  color: var(--ink);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.12;
+  color: inherit;
+  letter-spacing: -0.02em;
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: all var(--transition);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* 3. Drafting & Blueprint Engineering Motifs */
+.blueprint-grid {
+  background-image:
+    linear-gradient(to right, rgba(28, 34, 38, 0.055) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(28, 34, 38, 0.055) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+.blueprint-grid-dark {
+  background-image:
+    linear-gradient(to right, rgba(245, 243, 239, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(245, 243, 239, 0.05) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+/* Corner CAD Registration Crosses (+) */
+.plate {
+  position: relative;
+}
+
+.plate::before,
+.plate::after {
+  content: "+";
+  position: absolute;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1;
+  color: var(--brass);
+  pointer-events: none;
+  font-weight: 600;
+  z-index: 2;
+}
+
+.plate::before {
+  top: -6px;
+  left: -4px;
+}
+
+.plate::after {
+  bottom: -6px;
+  right: -4px;
+}
+
+.plate-rev::before {
+  top: -6px;
+  right: -4px;
+  left: auto;
+}
+
+.plate-rev::after {
+  bottom: -6px;
+  left: -4px;
+  right: auto;
+}
+
+/* Dimension Line Dividers with Brass End Ticks */
+.dim-line {
+  position: relative;
+  height: 1px;
+  background: var(--hairline);
+  margin: 1.5rem 0;
+  width: 100%;
+}
+
+.dim-line::before,
+.dim-line::after {
+  content: "";
+  position: absolute;
+  top: -4px;
+  width: 1px;
+  height: 9px;
+  background: var(--brass);
+}
+
+.dim-line::before {
+  left: 0;
+}
+
+.dim-line::after {
+  right: 0;
+}
+
+.dim-line.dark {
+  background: var(--steelline);
+}
+
+/* Physical Brass Rivets on Panels */
+.rivet {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: var(--brass);
+  border: 1px solid var(--steel);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.4), 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.rivet-tl { top: 12px; left: 12px; }
+.rivet-tr { top: 12px; right: 12px; }
+.rivet-bl { bottom: 12px; left: 12px; }
+.rivet-br { bottom: 12px; right: 12px; }
+
+/* 4. Technical Badges & Monospace Accents */
+.mono-badge {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  padding: 4px 10px;
+  border-radius: 2px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+}
+
+.badge-brass {
+  background: var(--brass-soft);
+  color: var(--brass);
+  border: 1px solid var(--brass);
+}
+
+.badge-steel {
+  background: rgba(28, 34, 38, 0.08);
+  color: var(--steel);
+  border: 1px solid var(--hairline);
+}
+
+.badge-dark {
+  background: rgba(245, 243, 239, 0.08);
+  color: var(--brass2);
+  border: 1px solid var(--steelline);
+}
+
+/* 5. Buttons & Interactive Controls */
+.btn {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 2px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all var(--transition);
+}
+
+.btn-primary {
+  background-color: var(--brass);
+  color: var(--steel);
+  border-color: var(--brass);
+  font-weight: 700;
+}
+
+.btn-primary:hover {
+  background-color: var(--brass2);
+  border-color: var(--brass2);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px var(--brass-glow);
+}
+
+.btn-steel {
+  background-color: var(--steel);
+  color: var(--paper);
+  border-color: var(--steel);
+}
+
+.btn-steel:hover {
+  background-color: var(--steel2);
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--steel);
+  border-color: var(--hairline);
+}
+
+.btn-outline:hover {
+  border-color: var(--steel);
+  background: rgba(28, 34, 38, 0.04);
+}
+
+.btn-outline-light {
+  background: transparent;
+  color: var(--paper);
+  border-color: rgba(245, 243, 239, 0.25);
+}
+
+.btn-outline-light:hover {
+  border-color: var(--brass);
+  color: var(--brass2);
+  background: rgba(176, 141, 87, 0.08);
+}
+
+.btn-whatsapp {
+  background-color: #25D366;
+  color: #FFFFFF;
+  border-color: #25D366;
+  font-weight: 700;
+}
+
+.btn-whatsapp:hover {
+  background-color: #20BA5A;
+  border-color: #20BA5A;
+  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.35);
+  transform: translateY(-1px);
+}
+
+.btn-sm {
+  padding: 8px 14px;
+  font-size: 10px;
+}
+
+/* 6. Layout Containers */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.container-narrow {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* 7. Header & Navigation */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(245, 243, 239, 0.94);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--hairline);
+  transition: all var(--transition);
+}
+
+.nav-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+}
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-icon {
+  width: 38px;
+  height: 38px;
+  background: var(--steel);
+  color: var(--brass);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--brass);
+}
+
+.brand-text h1 {
+  font-size: 1.35rem;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--steel);
+}
+
+.brand-text .est-tag {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--muted);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--steel);
+  font-weight: 500;
+  position: relative;
+  padding: 6px 0;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--brass);
+}
+
+.nav-links a.active::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--brass);
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-phone-pill {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--steel);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: var(--paper2);
+  border: 1px solid var(--hairline);
+  font-weight: 600;
+}
+
+.nav-phone-pill:hover {
+  border-color: var(--brass);
+  color: var(--brass);
+}
+
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: 1px solid var(--hairline);
+  padding: 8px;
+  cursor: pointer;
+  color: var(--steel);
+}
+
+/* 8. Hero Section */
+.hero-section {
+  position: relative;
+  background-color: var(--steel);
+  color: var(--paper);
+  padding: 5.5rem 0 4.5rem;
+  overflow: hidden;
+}
+
+.hero-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.28;
+  mix-blend-mode: luminosity;
+  pointer-events: none;
+}
+
+.hero-inset-frame {
+  position: absolute;
+  inset: 1.25rem;
+  border: 1px solid rgba(245, 243, 239, 0.12);
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 10;
+  max-width: 900px;
+}
+
+.hero-title {
+  font-size: clamp(2.4rem, 6.2vw, 4.8rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin: 1.5rem 0 1.5rem;
+  color: var(--paper);
+}
+
+.hero-title .accent-brass {
+  color: var(--brass2);
+}
+
+.hero-subtitle {
+  font-size: 1.15rem;
+  line-height: 1.6;
+  color: #B2BBC2;
+  max-width: 680px;
+  margin-bottom: 2.2rem;
+}
+
+.hero-cta-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* 9. Stats & Verification Strip */
+.stats-strip {
+  background-color: var(--steel);
+  border-top: 1px solid var(--steelline);
+  border-bottom: 1px solid var(--steelline);
+  color: var(--paper);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.stat-item {
+  padding: 2rem 1.5rem;
+  border-right: 1px solid var(--steelline);
+  position: relative;
+}
+
+.stat-item:last-child {
+  border-right: none;
+}
+
+.stat-num {
+  font-family: var(--font-mono);
+  font-size: clamp(1.8rem, 2.8vw, 2.5rem);
+  font-weight: 600;
+  color: var(--brass2);
+  line-height: 1;
+  margin-bottom: 0.4rem;
+}
+
+.stat-label {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--paper);
+  margin-bottom: 0.25rem;
+}
+
+.stat-sub {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted-light);
+  line-height: 1.35;
+}
+
+/* 10. Machinery Catalog Section */
+.section {
+  padding: 5rem 0;
+  position: relative;
+}
+
+.section-head {
+  margin-bottom: 2.5rem;
+}
+
+.section-tag {
+  margin-bottom: 0.75rem;
+}
+
+.section-title {
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  letter-spacing: -0.025em;
+  color: var(--steel);
+}
+
+.section-desc {
+  font-size: 1.05rem;
+  color: var(--muted);
+  max-width: 640px;
+  margin-top: 0.5rem;
+}
+
+/* Filter Tabs */
+.catalog-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.filter-btn {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 8px 16px;
+  background: var(--paper2);
+  color: var(--steel);
+  border: 1px solid var(--hairline);
+  cursor: pointer;
+  transition: all var(--transition);
+  font-weight: 500;
+}
+
+.filter-btn:hover {
+  border-color: var(--steel);
+}
+
+.filter-btn.active {
+  background: var(--steel);
+  color: var(--brass2);
+  border-color: var(--steel);
+  font-weight: 600;
+}
+
+/* Machine Cards Grid */
+.catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 2rem;
+}
+
+.spec-card {
+  background: var(--paperlight);
+  border: 1px solid var(--hairline);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+
+.spec-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--brass);
+}
+
+.card-topbar {
+  padding: 10px 16px;
+  background: var(--paper2);
+  border-bottom: 1px solid var(--hairline);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+.card-code {
+  color: var(--brass);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+
+.card-cat {
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.card-img-wrap {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: #E8E5DD;
+}
+
+.card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 400ms ease;
+}
+
+.spec-card:hover .card-img-wrap img {
+  transform: scale(1.04);
+}
+
+.card-body {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  line-height: 1.25;
+  color: var(--steel);
+}
+
+.card-spec {
+  font-size: 0.92rem;
+  color: var(--muted);
+  line-height: 1.5;
+  margin-bottom: 1.25rem;
+  flex-grow: 1;
+}
+
+.card-specs-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  margin-bottom: 1.25rem;
+}
+
+.card-specs-table td {
+  padding: 4px 0;
+  border-bottom: 1px dashed var(--hairline);
+}
+
+.card-specs-table td:last-child {
+  text-align: right;
+  font-weight: 600;
+  color: var(--steel);
+}
+
+.card-footer {
+  padding-top: 1rem;
+  border-top: 1px solid var(--hairline);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.card-price-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-price-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+
+.card-price {
+  font-family: var(--font-mono);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--steel);
+}
+
+/* 11. About & Heritage Section */
+.about-section {
+  background: var(--paper);
+  border-top: 1px solid var(--hairline);
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 3.5rem;
+  align-items: start;
+}
+
+.plant-photo-frame {
+  background: var(--paperlight);
+  border: 1px solid var(--hairline);
+  padding: 10px;
+  margin-bottom: 1.5rem;
+}
+
+.plant-photo-frame img {
+  width: 100%;
+  height: 380px;
+  object-fit: cover;
+}
+
+.photo-caption {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.about-narrative {
+  font-size: 1.05rem;
+  line-height: 1.68;
+  color: #384249;
+}
+
+/* Riveted Registration Plate */
+.reg-plate {
+  background: var(--steel);
+  border: 1px solid var(--steel2);
+  color: var(--paper);
+  padding: 2.2rem;
+  position: relative;
+  box-shadow: var(--shadow-md);
+}
+
+.reg-plate-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--steelline);
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.reg-plate-title {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--brass2);
+}
+
+.reg-table {
+  width: 100%;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  border-collapse: collapse;
+}
+
+.reg-table tr {
+  border-bottom: 1px solid var(--steelline);
+}
+
+.reg-table td {
+  padding: 10px 0;
+  vertical-align: top;
+}
+
+.reg-table .field-label {
+  color: var(--muted-light);
+  width: 38%;
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+}
+
+.reg-table .field-value {
+  color: var(--paper);
+  font-weight: 500;
+}
+
+/* 12. RFQ & Inquiry Section */
+.rfq-section {
+  background: var(--paper2);
+  border-top: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--hairline);
+}
+
+.rfq-card {
+  background: var(--paperlight);
+  border: 1px solid var(--hairline);
+  padding: 3rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.form-full {
+  grid-column: span 2;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--steel);
+  font-weight: 600;
+}
+
+.form-group label .req {
+  color: #D9483B;
+}
+
+.form-control {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  padding: 12px 14px;
+  background: var(--paper);
+  border: 1px solid var(--hairline);
+  border-radius: 2px;
+  color: var(--ink);
+  transition: all var(--transition);
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--brass);
+  background: var(--white);
+  box-shadow: 0 0 0 3px var(--brass-glow);
+}
+
+textarea.form-control {
+  min-height: 110px;
+  resize: vertical;
+}
+
+/* 13. Technical Footer */
+.site-footer {
+  background: var(--steel);
+  color: var(--paper);
+  padding: 4.5rem 0 2rem;
+  border-top: 1px solid var(--steelline);
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 3.5rem;
+}
+
+.footer-col h4 {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--brass2);
+  margin-bottom: 1.25rem;
+}
+
+.footer-col p {
+  color: #A9B3BA;
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.footer-links {
+  list-style: none;
+}
+
+.footer-links li {
+  margin-bottom: 0.6rem;
+}
+
+.footer-links a {
+  color: #A9B3BA;
+  font-size: 0.92rem;
+}
+
+.footer-links a:hover {
+  color: var(--brass2);
+}
+
+.footer-bottom {
+  border-top: 1px solid var(--steelline);
+  padding-top: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted-light);
+}
+
+.maker-credit {
+  color: var(--brass2);
+  font-weight: 500;
+}
+
+/* 14. Responsive Queries */
+@media (max-width: 1024px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .stat-item:nth-child(2) {
+    border-right: none;
+  }
+  .stat-item:nth-child(3),
+  .stat-item:nth-child(4) {
+    border-top: 1px solid var(--steelline);
+  }
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+  .mobile-menu-btn {
+    display: block;
+  }
+  .catalog-grid {
+    grid-template-columns: 1fr;
+  }
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  .form-full {
+    grid-column: span 1;
+  }
+  .rfq-card {
+    padding: 1.5rem;
+  }
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  .stat-item {
+    border-right: none;
+    border-bottom: 1px solid var(--steelline);
+  }
+  .stat-item:last-child {
+    border-bottom: none;
+  }
+}
